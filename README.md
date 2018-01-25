@@ -6,7 +6,13 @@ This project focuses on "Vechicle Detection, Tracking and Counting" by [TensorFl
 - Prediction the speed of the vehicle
 - Prediction of approximate vehicle size
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/22610163/35395126-8bc8041c-01fa-11e8-9995-a6f2eecb7ec5.jpg">
+</p>
+
 ## Theory
+
+TensorFlow™ is an open source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) communicated between them.
 
 ## Project Demo
 
@@ -15,7 +21,6 @@ This project focuses on "Vechicle Detection, Tracking and Counting" by [TensorFl
 **1.) Python and pip**
 
 Python is automatically installed on Ubuntu. Take a moment to confirm (by issuing a python -V command) that one of the following Python versions is already installed on your system:
-
 
 - Python 2.7
 - Python 3.3+
@@ -57,4 +62,3 @@ Ahmet Özlü
 
 ## License
 This system is available under the MIT license. See the LICENSE file for more info.
- 
