@@ -7,7 +7,7 @@ This project focuses on "Vechicle Detection, Tracking and Counting" by [TensorFl
 - Prediction of approximate vehicle size
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/35395126-8bc8041c-01fa-11e8-9995-a6f2eecb7ec5.jpg">
+  <img src="https://user-images.githubusercontent.com/22610163/35445395-8dba4406-02c2-11e8-84bf-b480edbe9472.jpg">
 </p>
 
 ## Theory
