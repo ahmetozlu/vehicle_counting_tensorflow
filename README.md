@@ -6,11 +6,17 @@ This project focuses on "Vechicle Detection, Tracking and Counting" by [TensorFl
 - Prediction the speed of the vehicle
 - Prediction of approximate vehicle size
 
+## Quick Demo
+
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/35445395-8dba4406-02c2-11e8-84bf-b480edbe9472.jpg">
+  <img src="https://user-images.githubusercontent.com/22610163/35499190-66eb6a54-04e2-11e8-9446-b54459975a65.gif">
 </p>
 
 ## Theory
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/22610163/35445395-8dba4406-02c2-11e8-84bf-b480edbe9472.jpg">
+</p>
 
 TensorFlow™ is an open source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) communicated between them.
 
