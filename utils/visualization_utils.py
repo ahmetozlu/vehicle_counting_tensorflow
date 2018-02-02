@@ -1,17 +1,8 @@
-# Copyright 2017 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
+#----------------------------------------------
+#--- Author         : Ahmet Ozlu
+#--- Mail           : ahmetozlu93@gmail.com
+#--- Date           : 27th January 2018
+#----------------------------------------------
 
 """A set of functions that are used for visualization.
 
@@ -165,7 +156,6 @@ def draw_bounding_box_on_image(image,
     (left, right, top, bottom) = (xmin, xmax, ymin, ymax)
   draw.line([(left, top), (left, bottom), (right, bottom),
              (right, top), (left, top)], width=thickness, fill=color) #a47
-
   image_temp = numpy.array(image)
   crop_img = image_temp[int(top):int(bottom), int(left):int(right)]
   height, width, channels = crop_img.shape
@@ -182,7 +172,7 @@ def draw_bounding_box_on_image(image,
   # If the total height of the display strings added to the top of the bounding
   # box exceeds the top of the image, stack the strings below the bounding box
   # instead of above.
-  display_str_list[0] = display_str_list[0] + ", " + prediction
+  display_str_list[0] = prediction + " " + display_str_list[0]
   display_str_heights = [font.getsize(ds)[1] for ds in display_str_list]
   # Each display_str has a top and bottom margin of 0.05x.
   total_display_str_height = (1 + 2 * 0.05) * sum(display_str_heights)
@@ -273,7 +263,6 @@ def draw_bounding_boxes_on_image(image,
       display_str_list = display_str_list_list[i]
     draw_bounding_box_on_image(image, boxes[i, 0], boxes[i, 1], boxes[i, 2],
                                boxes[i, 3], color, thickness, display_str_list)
-
 
 def draw_bounding_boxes_on_image_tensors(images,
                                          boxes,
@@ -472,9 +461,8 @@ def visualize_boxes_and_labels_on_image_array(image,
             class_name = category_index[classes[i]]['name']	    
           else:
             class_name = 'N/A'    	    
-          display_str = '{}: {}%'.format(
-              class_name,
-              int(100*scores[i]))
+          #display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
+	  display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
         else:
           display_str = 'score: {}%'.format(int(100 * scores[i]))
 
@@ -494,24 +482,29 @@ def visualize_boxes_and_labels_on_image_array(image,
           box_to_instance_masks_map[box],
           color=color
       )
-    draw_bounding_box_on_image_array(
-        image,
-        ymin,
-        xmin,
-        ymax,
-        xmax,
-        color=color,
-        thickness=line_thickness,
-        display_str_list=box_to_display_str_map[box],
-        use_normalized_coordinates=use_normalized_coordinates) 
+    
+    display_str_list=box_to_display_str_map[box]
+    print(display_str_list[0])
+    # we are interested just vehicles (i.e. cars and trucks)
+    if (("car" in display_str_list[0]) or ("truck" in display_str_list[0]) or ("bus" in display_str_list[0])):
+	    draw_bounding_box_on_image_array(
+		image,
+		ymin,
+		xmin,
+		ymax,
+		xmax,
+		color=color,
+		thickness=line_thickness,
+		display_str_list=box_to_display_str_map[box],
+		use_normalized_coordinates=use_normalized_coordinates) 
       
-    if keypoints is not None:
-      draw_keypoints_on_image_array(
-          image,
-          box_to_keypoints_map[box],
-          color=color,
-          radius=line_thickness / 2,
-          use_normalized_coordinates=use_normalized_coordinates)
+	    if keypoints is not None:
+	      draw_keypoints_on_image_array(
+		  image,
+		  box_to_keypoints_map[box],
+		  color=color,
+		  radius=line_thickness / 2,
+		  use_normalized_coordinates=use_normalized_coordinates)
 
   return image
 
