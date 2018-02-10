@@ -26,7 +26,7 @@ from utils import visualization_utils as vis_util
 if tf.__version__ < '1.4.0':
   raise ImportError('Please upgrade your tensorflow installation to v1.4.* or later!')
 
-cap = cv2.VideoCapture('sub-1504614469486.mp4')
+cap = cv2.VideoCapture('sub-1504619634606.mp4')
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
@@ -86,7 +86,7 @@ def object_detection_function():
 		    [detection_boxes, detection_scores, detection_classes, num_detections],
 		    feed_dict={image_tensor: image_np_expanded})
 	        # Visualization of the results of a detection.
-	        vis_util.visualize_boxes_and_labels_on_image_array(
+	        vis_util.visualize_boxes_and_labels_on_image_array(cap.get(1),
 		    image_np,
 		    np.squeeze(boxes),
 		    np.squeeze(classes).astype(np.int32),
@@ -95,7 +95,12 @@ def object_detection_function():
 		    use_normalized_coordinates=True,
 		    line_thickness=8)
 		#print(str(np.squeeze(boxes)) + "...***...")
+		cv2.line(image_np,(0,130),(511,130),(511,0,0),5)
+		cv2.line(image_np,(0,350),(511,350),(511,0,0),5)
+		cv2.line(image_np,(0,250),(511,250),(511,0,0),5)
 	    	cv2.imshow('vehicle detection',image_np)
+		#current_frame_number = cap.get(1);
+		#print(current_frame_number)
 	    	if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
 
