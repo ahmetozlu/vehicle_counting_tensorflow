@@ -16,6 +16,8 @@ The input video can be accessible by this [link](https://github.com/ahmetozlu/ve
   <img src="https://user-images.githubusercontent.com/22610163/36344830-095cc4ec-1431-11e8-8e57-976c40d87cf9.gif">
 </p>
 
+***THE DEVELOPING IS ON PROGRESS! THE REPO WILL BE UPDATED SOON, THE MORE TALENTED TRAFFIC ANALYZER APP WILL BE AVAILABLE IN THIS REPO!***
+
 ## Theory
 
 <p align="center">
