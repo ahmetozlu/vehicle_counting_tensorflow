@@ -5,11 +5,15 @@ This project focuses on "Vechicle Detection, Tracking and Counting" by [TensorFl
 - Detection of vehicle's direction of travel
 - Prediction the speed of the vehicle
 - Prediction of approximate vehicle size
+- **The images of detected vehicles are cropped from video frame and they are saved as new images under "[detected_vehicles](https://github.com/ahmetozlu/vehicle_counting_tensorflow/tree/master/detected_vehicles)" folder path**
+- **The program gives a .csv file as an output ([traffic_measurement.csv](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/traffic_measurement.csv)) which includes "Vehicle Type/Size", " Vehicle Color", " Vehicle Movement Direction", " Vehicle Speed (km/h)" rows, after the end of the process for the source video file.**
+
+The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/sub-1504614469486.mp4).
 
 ## Quick Demo
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/35499190-66eb6a54-04e2-11e8-9446-b54459975a65.gif">
+  <img src="https://user-images.githubusercontent.com/22610163/36344830-095cc4ec-1431-11e8-8e57-976c40d87cf9.gif">
 </p>
 
 ## Theory
