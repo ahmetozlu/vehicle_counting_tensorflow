@@ -25,11 +25,10 @@ import numpy
 import os
 from color_recognition_module import color_histogram_feature_extraction
 from color_recognition_module import knn_classifier
-import image_saver
-current_frame_number_temp_list = [0]
-bottom_position_of_detected_vehicle_temp_list = [0]
-vehicle_counting_temp_list = [0]
-vehicle_count = [0]
+
+temp = [0]
+temp2 = [0]
+temp3 = [0]
 
 detected = False
 
@@ -74,6 +73,7 @@ def save_image_array_as_png(image, output_path):
   with tf.gfile.Open(output_path, 'w') as fid:
     image_pil.save(fid, 'PNG')
 
+
 def encode_image_array_as_png_str(image):
   """Encodes a numpy array into a PNG string.
 
@@ -89,6 +89,7 @@ def encode_image_array_as_png_str(image):
   png_string = output.getvalue()
   output.close()
   return png_string
+
 
 def draw_bounding_box_on_image_array(current_frame_number, image,
                                      ymin,
@@ -116,13 +117,13 @@ def draw_bounding_box_on_image_array(current_frame_number, image,
       coordinates as absolute.
   """
   image_pil = Image.fromarray(np.uint8(image)).convert('RGB')
-  #vehicle_counting_temp_list = [0]
-  vehicle_counting_temp_list, csv_line, update_csv = draw_bounding_box_on_image(current_frame_number,image_pil, ymin, xmin, ymax, xmax, color,
+  temp3 = [0]
+  temp3 = draw_bounding_box_on_image(current_frame_number,image_pil, ymin, xmin, ymax, xmax, color,
                              thickness, display_str_list,
                              use_normalized_coordinates)
   np.copyto(image, np.array(image_pil))
   #print("draw_bounding_box_on_image_array: " + str(counter))
-  return vehicle_counting_temp_list, csv_line, update_csv
+  return temp3
 
 def draw_bounding_box_on_image(current_frame_number,image,
                                ymin,
@@ -154,9 +155,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
       ymin, xmin, ymax, xmax as relative to the image.  Otherwise treat
       coordinates as absolute.
   """
-  csv_line = ""
-  update_csv = False
-  vehicle_counting_temp_list = [0]
+  temp3 = [0]
   draw = ImageDraw.Draw(image)
   im_width, im_height = image.size
   if use_normalized_coordinates:
@@ -166,16 +165,12 @@ def draw_bounding_box_on_image(current_frame_number,image,
     (left, right, top, bottom) = (xmin, xmax, ymin, ymax)
   draw.line([(left, top), (left, bottom), (right, bottom),
              (right, top), (left, top)], width=thickness, fill=color) #a47
-  speed = "n.a."
-  direction = "n.a."
+  speed = "unpredictible"
+  if(bottom > 200):
+	speed,  temp3 = speed_prediction(top, bottom, current_frame_number, right, left)
 
   image_temp = numpy.array(image)
   crop_img = image_temp[int(top):int(bottom), int(left):int(right)]
-
-  if(bottom > 200):
-	direction, speed,  vehicle_counting_temp_list, update_csv = speed_prediction(top, bottom, current_frame_number, right, left, crop_img)
-
-
   height, width, channels = crop_img.shape
   crop_img = crop_center(crop_img, 50, 50)
   cv2.imwrite(current_path + "/debug_utility"+".png",crop_img)
@@ -183,15 +178,14 @@ def draw_bounding_box_on_image(current_frame_number,image,
   color_histogram_feature_extraction.color_histogram_of_test_image(crop_img) 
   prediction = knn_classifier.main(current_path + "/utils/color_recognition_module/" + "training.data", current_path + "/utils/color_recognition_module/" + "test.data")
   try:
-    font = ImageFont.truetype('arial.ttf', 16)
+    font = ImageFont.truetype('arial.ttf', 24)
   except IOError:
     font = ImageFont.load_default()
 
   # If the total height of the display strings added to the top of the bounding
   # box exceeds the top of the image, stack the strings below the bounding box
   # instead of above.
-  display_str_list[0] = prediction + " " + display_str_list[0]
-  csv_line = prediction + "," + str (direction) + "," + str(speed)
+  display_str_list[0] = prediction + " " + display_str_list[0] + "speed: " + str(speed)
   display_str_heights = [font.getsize(ds)[1] for ds in display_str_list]
   # Each display_str has a top and bottom margin of 0.05x.
   total_display_str_height = (1 + 2 * 0.05) * sum(display_str_heights)
@@ -215,7 +209,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
         font=font)
     text_bottom -= text_height - 2 * margin
     #print("draw_bounding_box_on_image: " + str(counter))
-    return vehicle_counting_temp_list, csv_line, update_csv
+    return temp3
 
 def crop_center(img,cropx,cropy):
     y,x, channels = img.shape
@@ -223,18 +217,16 @@ def crop_center(img,cropx,cropy):
     starty = y//2-(cropy//2)    
     return img[starty:starty+cropy,startx:startx+cropx]
 
-def speed_prediction(top, bottom, current_frame_number, right, left, crop_img):
+def speed_prediction(top, bottom, current_frame_number, right, left):
 	'''print("pos: " + str((top+bottom)/2))
 	print("current frame number: " + str(current_frame_number))
   	print("size: " + str((bottom-top)*(right-left)))
-	print("FARK: " + str(current_frame_number - current_frame_number_temp_list[0]))
-	#speed = (((top+bottom)/2) - bottom_position_of_detected_vehicle_temp_list[0])/(current_frame_number - current_frame_number_temp_list[0])'''
+	print("FARK: " + str(current_frame_number - temp[0]))
+	#speed = (((top+bottom)/2) - temp2[0])/(current_frame_number - temp[0])'''
 	
-	speed = "n.a."
-	direction = "n.a."
+	speed = "unpredicted"
 	scale = 1
 	isInROI = True
-	update_csv = False
 	if ((bottom)< 250):
 		scale = 1
 		
@@ -243,42 +235,30 @@ def speed_prediction(top, bottom, current_frame_number, right, left, crop_img):
 	else:
 		isInROI = False
 	print("--------------------------------------------------------")
-	#print("len(bottom_position_of_detected_vehicle_temp_list)" + str(len(bottom_position_of_detected_vehicle_temp_list)))
-	#print("bottom-bottom_position_of_detected_vehicle_temp_list[0]" + str(bottom-bottom_position_of_detected_vehicle_temp_list[0]))
-
-	
-	#vehicle_counting_temp_list = []
-
-	if ((len(bottom_position_of_detected_vehicle_temp_list) != 0) and bottom-bottom_position_of_detected_vehicle_temp_list[0] > 0 and 205<bottom_position_of_detected_vehicle_temp_list[0] and bottom_position_of_detected_vehicle_temp_list[0]<210 and 200<bottom ):
-		print("COUNTER++")
-		vehicle_counting_temp_list.insert(0,1)
-		update_csv = True
-		image_saver.save_image(crop_img)
-
-	print("bottom_position_of_detected_vehicle_temp_list[0]: " + str(bottom_position_of_detected_vehicle_temp_list[0]))
+	#print("len(temp2)" + str(len(temp2)))
+	#print("bottom-temp2[0]" + str(bottom-temp2[0]))
+	print("temp2[0]: " + str(temp2[0]))
 	print("bottom: " + str(bottom))
+	
+	#temp3 = []
 
-	if(bottom > bottom_position_of_detected_vehicle_temp_list[0]):
-		direction = "down"
-	else:
-		direction = "up"
+	if ((len(temp2) != 0) and bottom-temp2[0] > 0 and 205<temp2[0] and temp2[0]<210 and 200<bottom ):
+		print("COUNTER++")
+		temp3.insert(0,1)
 
 	if (isInROI):
-		pixel_length = ((bottom)) - bottom_position_of_detected_vehicle_temp_list[0]
+		pixel_length = ((bottom)) - temp2[0]
 		scale_real_length = (pixel_length / 5) * 220
 
-		total_time_passed = (current_frame_number - current_frame_number_temp_list[0])
+		total_time_passed = (current_frame_number - temp[0])
 		scale_real_time_passed = total_time_passed * 24
-		if(scale_real_time_passed != 0):
-			print("scale_real_time_passed: " + str(scale_real_time_passed))	
-			print("scale: " + str(scale))	
-			speed = (scale_real_length/scale_real_time_passed)/scale
-			speed = speed/6*40
-			#print("speed: " + str(speed))
-			current_frame_number_temp_list.insert(0,current_frame_number)
-			bottom_position_of_detected_vehicle_temp_list.insert(0,(bottom))
+
+		speed = (scale_real_length/scale_real_time_passed)/scale
+		#print("speed: " + str(speed))
+		temp.insert(0,current_frame_number)
+		temp2.insert(0,(bottom))
 	#print("speed_prediction: " + str(counter))
-	return direction, speed, vehicle_counting_temp_list, update_csv
+	return speed, temp3
 
 def draw_bounding_boxes_on_image_array(image,
                                        boxes,
@@ -515,10 +495,8 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
   """
   # Create a display string (and color) for every box location, group any boxes
   # that correspond to the same location.
-  csv_line_util = "not_available"
   counter = 0
-  vehicle_counting_temp_list = []
-  #update_csv = False
+  temp3 = []
   box_to_display_str_map = collections.defaultdict(list)
   box_to_color_map = collections.defaultdict(str)
   box_to_instance_masks_map = {}
@@ -566,7 +544,7 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
     #print(display_str_list[0]) print the prediction
     # we are interested just vehicles (i.e. cars and trucks)
     if (("car" in display_str_list[0]) or ("truck" in display_str_list[0]) or ("bus" in display_str_list[0])):
-	    vehicle_counting_temp_list, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
+	    temp3 = draw_bounding_box_on_image_array(current_frame_number,
 		image,
 		ymin,
 		xmin,
@@ -586,24 +564,17 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
 		  use_normalized_coordinates=use_normalized_coordinates)
 
   #print("visualize_boxes_and_labels_on_image_array: " + str(counter))
-  if(1 in vehicle_counting_temp_list):
+  if(1 in temp3):
 	counter = 1
-	print(vehicle_counting_temp_list)	
-	del vehicle_counting_temp_list[:]
-	vehicle_counting_temp_list = []
-	print(vehicle_counting_temp_list)
+	print(temp3)	
+	del temp3[:]
+	temp3 = []
+	print(temp3)
 	print("RETURN IF")
-	if(class_name == "boat"):
-		class_name = "truck"
-	csv_line_util = class_name + "," + csv_line
-  #vehicle_counting_temp_list = []
-  '''print(vehicle_counting_temp_list)
+  #temp3 = []
+  print(temp3)
   print("RETURN")
-  if(update_csv == True):
-	print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-	print(class_name + "," + csv_line)'''
-  #print(display_str_list[0])
-  return image, counter, csv_line_util
+  return image, counter
 
 
 def add_cdf_image_summary(values, name):
