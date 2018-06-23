@@ -1,5 +1,5 @@
 # VEHICLE DETECTION, TRACKING AND COUNTING
-This project focuses on "Vechicle Detection, Tracking and Counting" using [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) and [OpenCV](https://opencv.org/about.html). This project has more than just counting vehicles, here are the additional capabilities of this project;
+This project focuses on "Vechicle Detection, Tracking and Counting" using [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) and [OpenCV](https://opencv.org/about.html). This project has more than just counting vehicles, here are the additional capabilities of it;
 
 - Recognition of approximate vehicle color
 - Detection of vehicle's direction of travel
@@ -40,7 +40,7 @@ The input video can be accessible by this [link](https://github.com/ahmetozlu/ve
   <img src="https://user-images.githubusercontent.com/22610163/41812993-a4b5a172-7735-11e8-89f6-083ec0625f21.png" | width=700>
 </p>
 
-Source video is read frame by frame with OpenCV. Each frames is processed by ["SSD with Mobilenet" model](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2017_11_17) is developed on TensorFlow. The main pipeline of the tracker is given at the above Figure.
+Source video is read frame by frame with OpenCV. Each frames is processed by ["SSD with Mobilenet" model](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2017_11_17) is developed on TensorFlow. This is a loop that continue working till reaching end of the video. The main pipeline of the tracker is given at the above Figure.
 
 ### Model
 
