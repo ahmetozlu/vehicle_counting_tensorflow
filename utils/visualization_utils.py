@@ -29,13 +29,11 @@ import os
 # image utils - image saver import
 from image_utils import image_saver
 
-
-#  speed prediction module - import
+#  predicted_speed predicted_color module - import
 from speed_and_direction_prediction_module import speed_prediction
 
 # color recognition module - import
 from color_recognition_module import color_recognition_api
-
 
 
 # Variables
@@ -162,7 +160,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
       ymin, xmin, ymax, xmax as relative to the image.  Otherwise treat
       coordinates as absolute.
   """
-  csv_line = "" # to create new csv line consists of vehicle type, speed, color and direction
+  csv_line = "" # to create new csv line consists of vehicle type, predicted_speed, color and predicted_direction
   update_csv = False # update csv for a new vehicle that are passed from ROI - just one new line for each vehicles
   is_vehicle_detected = [0]
   draw = ImageDraw.Draw(image)
@@ -175,16 +173,16 @@ def draw_bounding_box_on_image(current_frame_number,image,
   draw.line([(left, top), (left, bottom), (right, bottom),
              (right, top), (left, top)], width=thickness, fill=color)
 
-  speed = "n.a." # means not available, it is just initialization
-  direction = "n.a." # means not available, it is just initialization
+  predicted_speed = "n.a." # means not available, it is just initialization
+  predicted_direction = "n.a." # means not available, it is just initialization
 
   image_temp = numpy.array(image)
   detected_vehicle_image = image_temp[int(top):int(bottom), int(left):int(right)]
 
-  if(bottom > ROI_POSITION): # if the vehicle get in ROI area, vehicle speed prediction algorithms are called - 200 is an arbitrary value, for my case it looks very well to set position of ROI line at y pixel 200
-	direction, speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
+  if(bottom > ROI_POSITION): # if the vehicle get in ROI area, vehicle predicted_speed predicted_color algorithms are called - 200 is an arbitrary value, for my case it looks very well to set position of ROI line at y pixel 200
+	predicted_direction, predicted_speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
 
-  prediction = color_recognition_api.color_recognition(detected_vehicle_image)
+  predicted_color = color_recognition_api.color_recognition(detected_vehicle_image)
   
   try:
     font = ImageFont.truetype('arial.ttf', 16)
@@ -194,8 +192,8 @@ def draw_bounding_box_on_image(current_frame_number,image,
   # If the total height of the display strings added to the top of the bounding
   # box exceeds the top of the image, stack the strings below the bounding box
   # instead of above.
-  display_str_list[0] = prediction + " " + display_str_list[0]
-  csv_line = prediction + "," + str (direction) + "," + str(speed) # csv line created
+  display_str_list[0] = predicted_color + " " + display_str_list[0]
+  csv_line = predicted_color + "," + str (predicted_direction) + "," + str(predicted_speed) # csv line created
   display_str_heights = [font.getsize(ds)[1] for ds in display_str_list]
 
   # Each display_str has a top and bottom margin of 0.05x.
