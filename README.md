@@ -85,7 +85,11 @@ Install TensorFlow by invoking one of the following commands:
 
 See required commands to install TensorFlow Object Detection API on Ubuntu in [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md).
 
-If you are still getting problem about installation after completed the installation of the packet that are given above, please check that [link](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md#coco-api-installation) out to get detailed info about installation.
+You can test that you have correctly installed the Tensorflow Object Detection API by running the following command:
+
+    python object_detection/builders/model_builder_test.py
+   
+If you are still getting problem about installation after completed the installation of the packet that are given above, please check that [link](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md) out to get detailed info about installation.
 
 ## Citation
 If you use this code for your publications, please cite it as:
