@@ -30,12 +30,12 @@ import image_saver
 # Color recognition module - imports
 from color_recognition_module import color_histogram_feature_extraction
 from color_recognition_module import knn_classifier
-from color_recognition_module import color_recognition_api
-
-import speed_prediction
 
 # Variables
-is_vehicle_detected = [0]
+current_frame_number_temp_list = [0]
+bottom_position_of_detected_vehicle_temp_list = [0]
+vehicle_counting_temp_list = [0]
+vehicle_count = [0]
 ROI_POSITION = 200
 
 _TITLE_LEFT_MARGIN = 10
@@ -122,11 +122,11 @@ def draw_bounding_box_on_image_array(current_frame_number, image,
       coordinates as absolute.
   """
   image_pil = Image.fromarray(np.uint8(image)).convert('RGB')
-  is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image(current_frame_number,image_pil, ymin, xmin, ymax, xmax, color,
+  vehicle_counting_temp_list, csv_line, update_csv = draw_bounding_box_on_image(current_frame_number,image_pil, ymin, xmin, ymax, xmax, color,
                              thickness, display_str_list,
                              use_normalized_coordinates)
   np.copyto(image, np.array(image_pil))
-  return is_vehicle_detected, csv_line, update_csv
+  return vehicle_counting_temp_list, csv_line, update_csv
 
 def draw_bounding_box_on_image(current_frame_number,image,
                                ymin,
@@ -160,7 +160,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
   """
   csv_line = "" # to create new csv line consists of vehicle type, speed, color and direction
   update_csv = False # update csv for a new vehicle that are passed from ROI - just one new line for each vehicles
-  is_vehicle_detected = [0]
+  vehicle_counting_temp_list = [0]
   draw = ImageDraw.Draw(image)
   im_width, im_height = image.size
   if use_normalized_coordinates:
@@ -175,20 +175,18 @@ def draw_bounding_box_on_image(current_frame_number,image,
   direction = "n.a." # means not available, it is just initialization
 
   image_temp = numpy.array(image)
-  detected_vehicle_image = image_temp[int(top):int(bottom), int(left):int(right)]
+  crop_img = image_temp[int(top):int(bottom), int(left):int(right)]
 
   if(bottom > ROI_POSITION): # if the vehicle get in ROI area, vehicle speed prediction algorithms are called - 200 is an arbitrary value, for my case it looks very well to set position of ROI line at y pixel 200
-	direction, speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
+	direction, speed,  vehicle_counting_temp_list, update_csv = speed_prediction(top, bottom, current_frame_number, right, left, crop_img)
 
-  prediction = color_recognition_api.color_recognition(detected_vehicle_image)
-
-  '''height, width, channels = detected_vehicle_image.shape
-  detected_vehicle_image = crop_center(detected_vehicle_image, 50, 50) # crop the detected vehicle image and get a image piece from center of it both for debugging and sending that image piece to color recognition module
+  height, width, channels = crop_img.shape
+  crop_img = crop_center(crop_img, 50, 50) # crop the detected vehicle image and get a image piece from center of it both for debugging and sending that image piece to color recognition module
   # for debugging
-  #cv2.imwrite(current_path + "/debug_utility"+".png",detected_vehicle_image) # save image piece for debugging
+  #cv2.imwrite(current_path + "/debug_utility"+".png",crop_img) # save image piece for debugging
   open(current_path+"/utils/color_recognition_module/"+"test.data", "w")   
-  color_histogram_feature_extraction.color_histogram_of_test_image(detected_vehicle_image) # send image piece to regonize vehicle color
-  prediction = knn_classifier.main(current_path + "/utils/color_recognition_module/" + "training.data", current_path + "/utils/color_recognition_module/" + "test.data")'''
+  color_histogram_feature_extraction.color_histogram_of_test_image(crop_img) # send image piece to regonize vehicle color
+  prediction = knn_classifier.main(current_path + "/utils/color_recognition_module/" + "training.data", current_path + "/utils/color_recognition_module/" + "test.data")
   
   try:
     font = ImageFont.truetype('arial.ttf', 16)
@@ -224,8 +222,55 @@ def draw_bounding_box_on_image(current_frame_number,image,
         fill='black',
         font=font)
     text_bottom -= text_height - 2 * margin
-    return is_vehicle_detected, csv_line, update_csv
+    return vehicle_counting_temp_list, csv_line, update_csv
 
+def crop_center(img,cropx,cropy): # to crop and get the center of the given image
+    y,x, channels = img.shape
+    startx = x//2-(cropx//2)
+    starty = y//2-(cropy//2)  
+  
+    return img[starty:starty+cropy,startx:startx+cropx]
+
+def speed_prediction(top, bottom, current_frame_number, right, left, crop_img):	
+	speed = "n.a." # means not available, it is just initialization
+	direction = "n.a." # means not available, it is just initialization
+	scale = 1 # manual scaling because we did not performed camera calibration
+	isInROI = True # is the object that is inside Region Of Interest
+	update_csv = False
+
+	if ((bottom)< 250):
+		scale = 1 # scale is used for manual scaling because we did not performed camera calibration				
+	elif ((bottom > 250) and (bottom < 320)):
+		scale = 2 # scale is used for manual scaling because we did not performed camera calibration				
+	else:
+		isInROI = False
+
+	if ((len(bottom_position_of_detected_vehicle_temp_list) != 0) and bottom-bottom_position_of_detected_vehicle_temp_list[0] > 0 and 205<bottom_position_of_detected_vehicle_temp_list[0] and bottom_position_of_detected_vehicle_temp_list[0]<210 and ROI_POSITION<bottom ):
+		vehicle_counting_temp_list.insert(0,1)
+		update_csv = True
+		image_saver.save_image(crop_img)
+
+	# for debugging
+	# print("bottom_position_of_detected_vehicle_temp_list[0]: " + str(bottom_position_of_detected_vehicle_temp_list[0]))
+	# print("bottom: " + str(bottom))
+
+	if(bottom > bottom_position_of_detected_vehicle_temp_list[0]):
+		direction = "down"
+	else:
+		direction = "up"
+
+	if (isInROI):
+		pixel_length = ((bottom)) - bottom_position_of_detected_vehicle_temp_list[0]
+		scale_real_length = pixel_length * 44 # multiplied by 44 to convert pixel length to real length in meters (chenge 44 to get length in meters for your case)
+		total_time_passed = (current_frame_number - current_frame_number_temp_list[0]) 
+		scale_real_time_passed = total_time_passed * 24 # get the elapsed total time for a vehicle to pass through ROI area (24 = fps)
+		if(scale_real_time_passed != 0):
+			speed = (scale_real_length/scale_real_time_passed)/scale # performing manual scaling because we have not performed camera calibration
+			speed = speed/6*40 # use reference constant to get vehicle speed prediction in kilometer unit
+			current_frame_number_temp_list.insert(0,current_frame_number)
+			bottom_position_of_detected_vehicle_temp_list.insert(0,(bottom))
+
+	return direction, speed, vehicle_counting_temp_list, update_csv
 
 def draw_bounding_boxes_on_image_array(image,
                                        boxes,
@@ -464,7 +509,7 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
   # that correspond to the same location.
   csv_line_util = "not_available"
   counter = 0
-  is_vehicle_detected = []
+  vehicle_counting_temp_list = []
   box_to_display_str_map = collections.defaultdict(list)
   box_to_color_map = collections.defaultdict(str)
   box_to_instance_masks_map = {}
@@ -510,7 +555,7 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
     display_str_list=box_to_display_str_map[box]
     # we are interested just vehicles (i.e. cars and trucks)
     if (("car" in display_str_list[0]) or ("truck" in display_str_list[0]) or ("bus" in display_str_list[0])):
-	    is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
+	    vehicle_counting_temp_list, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
 		image,
 		ymin,
 		xmin,
@@ -529,10 +574,10 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
 		  radius=line_thickness / 2,
 		  use_normalized_coordinates=use_normalized_coordinates)
 
-  if(1 in is_vehicle_detected):
+  if(1 in vehicle_counting_temp_list):
 	counter = 1
-	del is_vehicle_detected[:]
-	is_vehicle_detected = []	
+	del vehicle_counting_temp_list[:]
+	vehicle_counting_temp_list = []	
 	if(class_name == "boat"):
 		class_name = "truck"
 	csv_line_util = class_name + "," + csv_line
