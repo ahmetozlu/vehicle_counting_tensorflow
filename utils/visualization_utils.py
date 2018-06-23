@@ -25,14 +25,18 @@ import tensorflow as tf
 import cv2
 import numpy
 import os
-import image_saver
 
-# Color recognition module - imports
-from color_recognition_module import color_histogram_feature_extraction
-from color_recognition_module import knn_classifier
+# image utils - image saver import
+from image_utils import image_saver
+
+
+#  speed prediction module - import
+from speed_and_direction_prediction_module import speed_prediction
+
+# color recognition module - import
 from color_recognition_module import color_recognition_api
 
-import speed_prediction
+
 
 # Variables
 is_vehicle_detected = [0]
@@ -181,14 +185,6 @@ def draw_bounding_box_on_image(current_frame_number,image,
 	direction, speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
 
   prediction = color_recognition_api.color_recognition(detected_vehicle_image)
-
-  '''height, width, channels = detected_vehicle_image.shape
-  detected_vehicle_image = crop_center(detected_vehicle_image, 50, 50) # crop the detected vehicle image and get a image piece from center of it both for debugging and sending that image piece to color recognition module
-  # for debugging
-  #cv2.imwrite(current_path + "/debug_utility"+".png",detected_vehicle_image) # save image piece for debugging
-  open(current_path+"/utils/color_recognition_module/"+"test.data", "w")   
-  color_histogram_feature_extraction.color_histogram_of_test_image(detected_vehicle_image) # send image piece to regonize vehicle color
-  prediction = knn_classifier.main(current_path + "/utils/color_recognition_module/" + "training.data", current_path + "/utils/color_recognition_module/" + "test.data")'''
   
   try:
     font = ImageFont.truetype('arial.ttf', 16)

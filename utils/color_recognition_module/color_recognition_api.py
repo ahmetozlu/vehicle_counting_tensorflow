@@ -1,7 +1,7 @@
 import color_histogram_feature_extraction
 import knn_classifier
 import os
-from utils import crop_image
+from utils.image_utils import crop_image
 
 current_path = os.getcwd()
 
