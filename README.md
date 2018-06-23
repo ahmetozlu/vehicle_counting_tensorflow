@@ -1,5 +1,5 @@
 # VEHICLE DETECTION, TRACKING AND COUNTING
-This project focuses on "Vechicle Detection, Tracking and Counting" by [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection). This project has more than just counting vehicles, here are the additional capabilities of this project;
+This project focuses on "Vechicle Detection, Tracking and Counting" using [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) and [OpenCV](https://opencv.org/about.html). This project has more than just counting vehicles, here are the additional capabilities of this project;
 
 - Recognition of approximate vehicle color
 - Detection of vehicle's direction of travel
@@ -20,11 +20,19 @@ The input video can be accessible by this [link](https://github.com/ahmetozlu/ve
 
 ## Theory
 
+### System Architecture
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/22610163/35445395-8dba4406-02c2-11e8-84bf-b480edbe9472.jpg">
 </p>
 
-TensorFlow™ is an open source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) communicated between them.
+- Vehicle detection and classification have been developed using TensorFlow Object Detection API
+- Vehicle speed prediction has been developed using OpenCV via image pixel manipulation and calculation
+- Vehicle color prediction has been developed using OpenCV via K-Nearest Neighbors Machine Learning Classification Algorithm is Trained Color Histogram Features
+
+[TensorFlow™](https://www.tensorflow.org/) is an open source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) communicated between them.
+
+[OpenCV (Open Source Computer Vision Library)](https://opencv.org/about.html) is an open source computer vision and machine learning software library. OpenCV was built to provide a common infrastructure for computer vision applications and to accelerate the use of machine perception in the commercial products.
 
 ### Tracker
 
@@ -36,9 +44,15 @@ Source video is read frame by frame with OpenCV. Each frames is processed by ["S
 
 ### Model
 
-By default I use an ["SSD with Mobilenet" model](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2017_11_17) in this project. See the [detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) for a list of other models that can be run out-of-the-box with varying speeds and accuracies.
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/22610163/41813283-79528968-773b-11e8-8069-0494cd59a813.png" | width=700>
+</p>
+
+By default I use an ["SSD with Mobilenet" model](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2017_11_17) in this project. You can find more information about SSD in [here](https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab). See the [detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) for a list of other models that can be run out-of-the-box with varying speeds and accuracies.
 
 ## Project Demo
+
+Demo video of the project is available on [My YouTube Channel](https://www.youtube.com/watch?v=PrqnhHf6fhM).
 
 ## Installation
 
