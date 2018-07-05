@@ -18,6 +18,8 @@ The input video can be accessible by this [link](https://github.com/ahmetozlu/ve
 
 ***THE DEVELOPING IS ON PROGRESS! THE REPO WILL BE UPDATED SOON, THE MORE TALENTED TRAFFIC ANALYZER APP WILL BE AVAILABLE IN THIS REPO!***
 
+***The TensorFlow Object Counting API that are used as a base for object counting on this project can be found on this [repo](https://github.com/ahmetozlu/tensorflow_object_counting_api).***
+
 ## Theory
 
 ### System Architecture
