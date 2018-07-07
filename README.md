@@ -1,5 +1,25 @@
 # VEHICLE DETECTION, TRACKING AND COUNTING
-This project focuses on "Vechicle Detection, Tracking and Counting" using [TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) and [OpenCV](https://opencv.org/about.html). This project has more than just counting vehicles, here are the additional capabilities of it;
+This sample project focuses on "Vechicle Detection, Tracking and Counting" using [TensorFlow Object Counting API](https://github.com/ahmetozlu/tensorflow_object_counting_api). 
+
+---
+
+***The [TensorFlow Object Counting API](https://github.com/ahmetozlu/tensorflow_object_counting_api) is used as a base for object counting on this project, more info can be found on this [repo](https://github.com/ahmetozlu/tensorflow_object_counting_api).***
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/22610163/36344830-095cc4ec-1431-11e8-8e57-976c40d87cf9.gif">
+</p>
+
+---
+
+***The developing is on progress! this sample project will be updated soon, the more talented traffic analyzer app will be available in this repo!***
+
+---
+
+# General Capabilities of This Sample Project
+
+This sample project has more than just counting vehicles, here are the additional capabilities of it;
 
 - Recognition of approximate vehicle color
 - Detection of vehicle's direction of travel
@@ -9,16 +29,6 @@ This project focuses on "Vechicle Detection, Tracking and Counting" using [Tenso
 - **The program gives a .csv file as an output ([traffic_measurement.csv](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/traffic_measurement.csv)) which includes "Vehicle Type/Size", " Vehicle Color", " Vehicle Movement Direction", " Vehicle Speed (km/h)" rows, after the end of the process for the source video file.**
 
 The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/sub-1504614469486.mp4).
-
-## Quick Demo
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/36344830-095cc4ec-1431-11e8-8e57-976c40d87cf9.gif">
-</p>
-
-***THE DEVELOPING IS ON PROGRESS! THE REPO WILL BE UPDATED SOON, THE MORE TALENTED TRAFFIC ANALYZER APP WILL BE AVAILABLE IN THIS REPO!***
-
-***The TensorFlow Object Counting API that are used as a base for object counting on this project can be found on this [repo](https://github.com/ahmetozlu/tensorflow_object_counting_api).***
 
 ## Theory
 
