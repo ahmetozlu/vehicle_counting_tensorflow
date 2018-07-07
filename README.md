@@ -13,11 +13,11 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 
 ---
 
-***The developing is on progress! this sample project will be updated soon, the more talented traffic analyzer app will be available in this repo!***
+***The developing is on progress! This sample project will be updated soon, the more talented traffic analyzer app will be available in this repo!***
 
 ---
 
-# General Capabilities of This Sample Project
+## General Capabilities of This Sample Project
 
 This sample project has more than just counting vehicles, here are the additional capabilities of it;
 
