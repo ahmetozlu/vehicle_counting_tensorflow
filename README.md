@@ -72,12 +72,10 @@ Demo video of the project is available on [My YouTube Channel](https://www.youtu
 
 Python is automatically installed on Ubuntu. Take a moment to confirm (by issuing a python -V command) that one of the following Python versions is already installed on your system:
 
-- Python 2.7
 - Python 3.3+
 
 The pip or pip3 package manager is usually installed on Ubuntu. Take a moment to confirm (by issuing a *pip -V* or *pip3 -V* command) that pip or pip3 is installed. We strongly recommend version 8.1 or higher of pip or pip3. If Version 8.1 or later is not installed, issue the following command, which will either install or upgrade to the latest pip version:
 
-    $ sudo apt-get install python-pip python-dev   # for Python 2.7
     $ sudo apt-get install python3-pip python3-dev # for Python 3.n
     
 **2.) OpenCV**
@@ -88,9 +86,7 @@ See required commands to install OpenCV on Ubuntu in [here](https://gist.github.
 
 Install TensorFlow by invoking one of the following commands:
 
-    $ pip install tensorflow      # Python 2.7; CPU support (no GPU support)
     $ pip3 install tensorflow     # Python 3.n; CPU support (no GPU support)
-    $ pip install tensorflow-gpu  # Python 2.7;  GPU support
     $ pip3 install tensorflow-gpu # Python 3.n; GPU support
 
 **4.) TensorFlow Object Detection API**
@@ -98,6 +94,10 @@ Install TensorFlow by invoking one of the following commands:
 See required commands to install TensorFlow Object Detection API on Ubuntu in [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md).
   
 If you are still getting problem about installation after completed the installation of the packet that are given above, please check that [link](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md) out to get detailed info about installation.
+
+- You can test the project by:
+
+      python3 vehicle_detection_main.py
 
 ## Citation
 If you use this code for your publications, please cite it as:
