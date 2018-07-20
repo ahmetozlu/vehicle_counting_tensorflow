@@ -27,14 +27,13 @@ import numpy
 import os
 
 # image utils - image saver import
-from image_utils import image_saver
+from utils.image_utils import image_saver
 
 #  predicted_speed predicted_color module - import
-from speed_and_direction_prediction_module import speed_prediction
+from utils.speed_and_direction_prediction_module import speed_prediction
 
 # color recognition module - import
-from color_recognition_module import color_recognition_api
-
+from utils.color_recognition_module import color_recognition_api
 
 # Variables
 is_vehicle_detected = [0]
@@ -180,7 +179,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
   detected_vehicle_image = image_temp[int(top):int(bottom), int(left):int(right)]
 
   if(bottom > ROI_POSITION): # if the vehicle get in ROI area, vehicle predicted_speed predicted_color algorithms are called - 200 is an arbitrary value, for my case it looks very well to set position of ROI line at y pixel 200
-	predicted_direction, predicted_speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
+        predicted_direction, predicted_speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
 
   predicted_color = color_recognition_api.color_recognition(detected_vehicle_image)
   
@@ -477,10 +476,10 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
       else:
         if not agnostic_mode:
           if classes[i] in category_index.keys():
-            class_name = category_index[classes[i]]['name']	    
+            class_name = category_index[classes[i]]['name']         
           else:
-            class_name = 'N/A'    	    
-	  display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
+            class_name = 'N/A'              
+          display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
         else:
           display_str = 'score: {}%'.format(int(100 * scores[i]))
 
@@ -504,32 +503,32 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,image,
     display_str_list=box_to_display_str_map[box]
     # we are interested just vehicles (i.e. cars and trucks)
     if (("car" in display_str_list[0]) or ("truck" in display_str_list[0]) or ("bus" in display_str_list[0])):
-	    is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
-		image,
-		ymin,
-		xmin,
-		ymax,
-		xmax,
-		color=color,
-		thickness=line_thickness,
-		display_str_list=box_to_display_str_map[box],
-		use_normalized_coordinates=use_normalized_coordinates) 
+            is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
+                image,
+                ymin,
+                xmin,
+                ymax,
+                xmax,
+                color=color,
+                thickness=line_thickness,
+                display_str_list=box_to_display_str_map[box],
+                use_normalized_coordinates=use_normalized_coordinates) 
       
-	    if keypoints is not None:
-	      draw_keypoints_on_image_array(
-		  image,
-		  box_to_keypoints_map[box],
-		  color=color,
-		  radius=line_thickness / 2,
-		  use_normalized_coordinates=use_normalized_coordinates)
+            if keypoints is not None:
+              draw_keypoints_on_image_array(
+                  image,
+                  box_to_keypoints_map[box],
+                  color=color,
+                  radius=line_thickness / 2,
+                  use_normalized_coordinates=use_normalized_coordinates)
 
   if(1 in is_vehicle_detected):
-	counter = 1
-	del is_vehicle_detected[:]
-	is_vehicle_detected = []	
-	if(class_name == "boat"):
-		class_name = "truck"
-	csv_line_util = class_name + "," + csv_line
+    counter = 1
+    del is_vehicle_detected[:]
+    is_vehicle_detected = []        
+    if(class_name == "boat"):
+      class_name = "truck"
+    csv_line_util = class_name + "," + csv_line
 
   return counter, csv_line_util
 
@@ -563,3 +562,4 @@ def add_cdf_image_summary(values, name):
     return image
   cdf_plot = tf.py_func(cdf_plot, [values], tf.uint8)
   tf.summary.image(name, cdf_plot)
+
