@@ -7,22 +7,13 @@
 # ----------------------------------------------
 
 # Imports
-import numpy as np
 import os
-import six.moves.urllib as urllib
-import sys
-import tarfile
 import tensorflow as tf
-import zipfile
 import cv2
 import numpy as np
 import csv
-import time
+from feed import get_nest_feeds_form_url
 
-from collections import defaultdict
-from io import StringIO
-from matplotlib import pyplot as plt
-from PIL import Image
 
 # Object detection imports
 from utils import label_map_util
@@ -38,6 +29,10 @@ with open('traffic_measurement.csv', 'w') as f:
 if tf.__version__ < '1.4.0':
     raise ImportError('Please upgrade your tensorflow installation to v1.4.* or later!'
                       )
+
+
+# Example use with nest:
+# mp4_feed, m3u8_feed = get_nest_feeds_form_url(nest_feed_url = 'https://video.nest.com/live/lcrmO3X2oD', chrome_location='/foo/bar/chrome.exe')
 
 # input video
 cap = cv2.VideoCapture('sub-1504614469486.mp4')
