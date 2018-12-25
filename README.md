@@ -22,7 +22,7 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 This sample project has more than just counting vehicles, here are the additional capabilities of it;
 
 - Recognition of approximate vehicle color
-- Detection of vehicle's direction of travel
+- Detection of vehicle direction of travel
 - Prediction the speed of the vehicle
 - Prediction of approximate vehicle size
 - **The images of detected vehicles are cropped from video frame and they are saved as new images under "[detected_vehicles](https://github.com/ahmetozlu/vehicle_counting_tensorflow/tree/master/detected_vehicles)" folder path**
