@@ -19,7 +19,7 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 
 ## General Capabilities of This Sample Project
 
-This sample project has more than just counting vehicles, here are the additional capabilities of it;
+This sample project has more than just counting vehicles, here are the additional capabilities of it:
 
 - Recognition of approximate vehicle color
 - Detection of vehicle direction of travel
