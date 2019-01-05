@@ -5,9 +5,9 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 
 ---
 
-The vehicle detection&counting challenge model will be published in here! The training on progress.
+The vehicle detection&counting challenge model will be published in here! **The training is on progress**!
 
-Some traffim jam vides:
+Some traffic jam videos:
 
 - https://www.youtube.com/watch?v=ynyImulYA8M
 
