@@ -1,0 +1,18 @@
+version: '2.3'
+
+services:
+
+  vehicle_counting:
+    image: vehicle_counting
+    container_name: vehicle_counting
+    working_dir: /vehicle_counting
+    build:
+      context: .
+    environment:
+      - DISPLAY=unix$DISPLAY
+    command: python3 -u vehicle_detection_main.py
+    volumes:
+      - ./:/vehicle_counting
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    runtime: nvidia
+
