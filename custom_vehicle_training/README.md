@@ -14,3 +14,16 @@ Some traffic jam videos:
 - https://www.youtube.com/watch?v=emDtxVZqZTA
 
 ---
+
+- Run the command in "tensorflow/models/research/" to solve the "object_detection module can not found" issue:
+
+    export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+
+utils:
+
+- generate_tfrecord.py: to convert our XML files to TFRecords
+
+- replace_text_in_files.py: to change specific strings in annotation xml such as changing <path>
+
+- xml_to_csv.py: to convert xml to csv so we can generate TFRecords from xml files
+
