@@ -16,7 +16,7 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 ---
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/57816063-958cd780-7782-11e9-939d-d3b61f8dbffd.gif">
+  <img src="https://user-images.githubusercontent.com/22610163/57816258-501cda00-7783-11e9-9d88-30e146250a36.gif">
 </p>
 
 ---
