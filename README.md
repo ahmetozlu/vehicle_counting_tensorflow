@@ -13,6 +13,14 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 
 ---
 
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/22610163/57816063-958cd780-7782-11e9-939d-d3b61f8dbffd.gif">
+</p>
+
+---
+
 ***The developing is on progress! This sample project will be updated soon, the more talented traffic analyzer app will be available in this repo!***
 
 ---
