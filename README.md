@@ -21,6 +21,7 @@ This sample project focuses on "Vechicle Detection, Tracking and Counting" using
 
 This sample project has more than just counting vehicles, here are the additional capabilities of it:
 
+- Detection and classification of the vehicles (car, truck, bicycle, motorcycle, bus)
 - Recognition of approximate vehicle color
 - Detection of vehicle direction of travel
 - Prediction the speed of the vehicle
@@ -61,6 +62,8 @@ Source video is read frame by frame with OpenCV. Each frames is processed by ["S
 </p>
 
 By default I use an ["SSD with Mobilenet" model](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2017_11_17) in this project. You can find more information about SSD in [here](https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab). See the [detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) for a list of other models that can be run out-of-the-box with varying speeds and accuracies.
+
+*The minimum vehicle detection threshold can be set [in this line](https://github.com/ahmetozlu/tensorflow_object_counting_api/blob/master/utils/visualization_utils.py#L443) in terms of percentage. The default minimum vehicle detecion threshold is 0.5!*
 
 ## Project Demo
 
