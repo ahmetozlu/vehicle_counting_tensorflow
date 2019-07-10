@@ -71,6 +71,12 @@ Demo video of the project is available on [My YouTube Channel](https://www.youtu
 
 ## Installation
 
+Run the demo in the GPU without installing anything, just nvidia-docker. The command to set up this docker:
+
+    docker-compose up
+    
+Alternative for nvidia-docker, you can follow the installation steps are given below!
+
 **1.) Python and pip**
 
 Python is automatically installed on Ubuntu. Take a moment to confirm (by issuing a python -V command) that one of the following Python versions is already installed on your system:
