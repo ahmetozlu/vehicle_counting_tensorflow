@@ -29,6 +29,12 @@ This sample project has more than just counting vehicles, here are the additiona
 - **The images of detected vehicles are cropped from video frame and they are saved as new images under "[detected_vehicles](https://github.com/ahmetozlu/vehicle_counting_tensorflow/tree/master/detected_vehicles)" folder path**
 - **The program gives a .csv file as an output ([traffic_measurement.csv](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/traffic_measurement.csv)) which includes "Vehicle Type/Size", " Vehicle Color", " Vehicle Movement Direction", " Vehicle Speed (km/h)" rows, after the end of the process for the source video file.**
 
+ToDos:
+
+- More powerful detection models will be shared.
+- Sample codes will be developed to process different types of input videos (for different types of road traffics such as two way lane road).
+- Code cleanup will be performed.
+
 The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/sub-1504614469486.mp4).
 
 ## Theory
