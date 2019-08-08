@@ -3,5 +3,5 @@ scipy
 scikit-image
 tensorflow>=1.3.0
 opencv-python
-
+packaging
 
