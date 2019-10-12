@@ -34,6 +34,7 @@ ToDos:
 - More powerful detection models will be shared.
 - Sample codes will be developed to process different types of input videos (for different types of road traffics such as two way lane road).
 - Code cleanup will be performed.
+- UI will be developed. 
 
 The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/sub-1504614469486.mp4).
 
