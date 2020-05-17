@@ -18,6 +18,7 @@ import cv2
 import numpy as np
 import csv
 import time
+from packaging import version
 
 from collections import defaultdict
 from io import StringIO
@@ -35,7 +36,7 @@ with open('traffic_measurement.csv', 'w') as f:
         'Vehicle Type/Size, Vehicle Color, Vehicle Movement Direction, Vehicle Speed (km/h)'
     writer.writerows([csv_line.split(',')])
 
-if tf.__version__ < '1.4.0':
+if version.parse(tf.__version__) < version.parse('1.4.0'):
     raise ImportError('Please upgrade your tensorflow installation to v1.4.* or later!'
                       )
 
