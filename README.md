@@ -43,7 +43,7 @@ The input video can be accessible by this [link](https://github.com/ahmetozlu/ve
 ### System Architecture
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/103478294-a0bccd00-4dd6-11eb-84a5-d12ca8c22976.png">
+  <img src="https://user-images.githubusercontent.com/22610163/103478400-80414280-4dd7-11eb-9874-3735359e2c20.png">
 </p>
 
 - Vehicle detection and classification have been developed using TensorFlow Object Detection API, [see](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py) for more info.
