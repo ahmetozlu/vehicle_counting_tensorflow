@@ -112,13 +112,17 @@ See required commands to install TensorFlow Object Detection API on Ubuntu in [h
 If you are still getting problem about installation after completed the installation of the packet that are given above, please check that [link](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md) out to get detailed info about installation.
 
 ---
-- After completing these 4 installation steps that are given at above, you can test the project by this command:
+
+**How to run the program?**
+
+- After completing these 4 installation steps that are given at above, you can test the project by one of these commands:
 
       python3 vehicle_detection_main.py imshow
       python3 vehicle_detection_main.py imwrite
 
 *imshow*  : shows the processed frames as an video on screen.
 *imwrite* : saves the processed frames as an output video in the project root folder.
+
 ---
 
 ## Citation
@@ -136,3 +140,4 @@ Ahmet Özlü
 
 ## License
 This system is available under the MIT license. See the LICENSE file for more info.
+
