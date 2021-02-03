@@ -159,6 +159,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
       ymin, xmin, ymax, xmax as relative to the image.  Otherwise treat
       coordinates as absolute.
   """
+  image_temp = numpy.array(image)
   csv_line = "" # to create new csv line consists of vehicle type, predicted_speed, color and predicted_direction
   update_csv = False # update csv for a new vehicle that are passed from ROI - just one new line for each vehicles
   is_vehicle_detected = [0]
@@ -175,7 +176,6 @@ def draw_bounding_box_on_image(current_frame_number,image,
   predicted_speed = "n.a." # means not available, it is just initialization
   predicted_direction = "n.a." # means not available, it is just initialization
 
-  image_temp = numpy.array(image)
   detected_vehicle_image = image_temp[int(top):int(bottom), int(left):int(right)]
 
   if(bottom > ROI_POSITION): # if the vehicle get in ROI area, vehicle predicted_speed predicted_color algorithms are called - 200 is an arbitrary value, for my case it looks very well to set position of ROI line at y pixel 200

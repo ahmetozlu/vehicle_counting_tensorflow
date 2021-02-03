@@ -114,7 +114,11 @@ If you are still getting problem about installation after completed the installa
 ---
 - After completing these 4 installation steps that are given at above, you can test the project by this command:
 
-      python3 vehicle_detection_main.py
+      python3 vehicle_detection_main.py imshow
+      python3 vehicle_detection_main.py imwrite
+
+*imshow*  : shows the processed frames as an video on screen.
+*imwrite* : saves the processed frames as an output video in the project root folder.
 ---
 
 ## Citation

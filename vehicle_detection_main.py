@@ -6,6 +6,11 @@
 # --- Date           : 27th January 2018
 # ----------------------------------------------
 
+#############################################################################################
+# command to run the program and show the output: python3 vehicle_detection_main.py imshow  #
+# command to run the program and save the output: python3 vehicle_detection_main.py imwrite #
+#############################################################################################
+
 # Imports
 import numpy as np
 import os
@@ -22,7 +27,6 @@ from packaging import version
 
 from collections import defaultdict
 from io import StringIO
-from matplotlib import pyplot as plt
 from PIL import Image
 
 # Object detection imports
@@ -36,14 +40,16 @@ with open('traffic_measurement.csv', 'w') as f:
         'Vehicle Type/Size, Vehicle Color, Vehicle Movement Direction, Vehicle Speed (km/h)'
     writer.writerows([csv_line.split(',')])
 
-if version.parse(tf.__version__) < version.parse('1.4.0'):
-    raise ImportError('Please upgrade your tensorflow installation to v1.4.* or later!'
-                      )
-
 # input video
-cap = cv2.VideoCapture('sub-1504619634606.mp4')
+source_video = 'input_video.mp4'
+cap = cv2.VideoCapture(source_video)
+
 
 # Variables
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+
 total_passed_vehicle = 0  # using it to count vehicles
 
 # By default I use an "SSD with Mobilenet" model here. See the detection model zoo (https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) for a list of other models that can be run out-of-the-box with varying speeds and accuracies.
@@ -88,12 +94,17 @@ def load_image_into_numpy_array(image):
 
 
 # Detection
-def object_detection_function():
+def object_detection_function(command):
     total_passed_vehicle = 0
     speed = 'waiting...'
     direction = 'waiting...'
     size = 'waiting...'
     color = 'waiting...'
+
+    if(command=="imwrite"):
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        output_movie = cv2.VideoWriter(source_video.split(".")[0]+'_output.avi', fourcc, fps, (width, height))
+
     with detection_graph.as_default():
         with tf.Session(graph=detection_graph) as sess:
 
@@ -196,7 +207,7 @@ def object_detection_function():
                     )
                 cv2.putText(
                     input_frame,
-                    '-Speed(km/h): ' + speed,
+                    '-Speed(km/h): ' + str(speed).split(".")[0],
                     (14, 312),
                     font,
                     0.4,
@@ -225,10 +236,14 @@ def object_detection_function():
                     cv2.FONT_HERSHEY_COMPLEX_SMALL,
                     )
 
-                cv2.imshow('vehicle detection', input_frame)
+                if(command=="imshow"):
+                    cv2.imshow('vehicle detection', input_frame)
 
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
+                    if cv2.waitKey(1) & 0xFF == ord('q'):
+                        break
+                elif(command=="imwrite"):
+                    output_movie.write(input_frame)
+                    print("writing frame...")
 
                 if csv_line != 'not_available':
                     with open('traffic_measurement.csv', 'a') as f:
@@ -240,4 +255,11 @@ def object_detection_function():
             cv2.destroyAllWindows()
 
 
-object_detection_function()		
+import argparse
+# Parse command line arguments
+parser = argparse.ArgumentParser(description='Vehicle Detection TensorFlow.')
+parser.add_argument("command",
+                    metavar="<command>",
+                    help="'imshow' or 'imwrite'")
+args = parser.parse_args()
+object_detection_function(args.command)		
