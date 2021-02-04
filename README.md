@@ -31,7 +31,6 @@ This sample project has more than just counting vehicles, here are the additiona
 
 ToDos:
 
-- TensorFlow 2.x version support will be developed.
 - More powerful detection models will be shared.
 - Sample codes will be developed to process different types of input videos (for different types of road traffics such as two way lane road).
 - Code cleanup will be performed.
@@ -106,7 +105,7 @@ Install TensorFlow by invoking one of the following commands:
     $ pip3 install tensorflow     # Python 3.n; CPU support (no GPU support)
     $ pip3 install tensorflow-gpu # Python 3.n; GPU support
 
-Please uncomment the lines in 
+Current program is compatible with TensorFlow 1.5.0 version. Please uncomment these lines to run the program with TensorFlow 2.x: [#1](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/utils/label_map_util.py#L117), [#2](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py#L77), [#3](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py#L77), [#4](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py#L78).
 
 **4.) TensorFlow Object Detection API**
 
