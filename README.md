@@ -31,12 +31,13 @@ This sample project has more than just counting vehicles, here are the additiona
 
 ToDos:
 
+- TensorFlow 2.x version support will be developed.
 - More powerful detection models will be shared.
 - Sample codes will be developed to process different types of input videos (for different types of road traffics such as two way lane road).
 - Code cleanup will be performed.
 - UI will be developed. 
 
-The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/sub-1504614469486.mp4).
+The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/input_video.mp4).
 
 ## Theory
 
@@ -100,10 +101,10 @@ See required commands to install OpenCV on Ubuntu in [here](https://gist.github.
 
 **3.) TensorFlow**
 
-Install TensorFlow by invoking one of the following commands:
+Install TensorFlow (version 1.5.0 is required) by invoking one of the following commands:
 
-    $ pip3 install tensorflow     # Python 3.n; CPU support (no GPU support)
-    $ pip3 install tensorflow-gpu # Python 3.n; GPU support
+    $ pip3 install tensorflow==1.5.0     # Python 3.n; CPU support (no GPU support)
+    $ pip3 install tensorflow-gpu==1.5.0 # Python 3.n; GPU support
 
 **4.) TensorFlow Object Detection API**
 
@@ -115,7 +116,7 @@ If you are still getting problem about installation after completed the installa
 
 **How to run the program?**
 
-After completing these 4 installation steps that are given at above, you can test the project by one of these commands:
+After completing these 4 installation steps that are given at above, you can test the project by one of these commands. Program takes an input argument 'imshow' or 'imwrite':
 
       python3 vehicle_detection_main.py imshow
       python3 vehicle_detection_main.py imwrite
@@ -140,6 +141,3 @@ Ahmet Özlü
 
 ## License
 This system is available under the MIT license. See the LICENSE file for more info.
-
-
-
