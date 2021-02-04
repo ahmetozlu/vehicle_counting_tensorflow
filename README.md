@@ -101,10 +101,12 @@ See required commands to install OpenCV on Ubuntu in [here](https://gist.github.
 
 **3.) TensorFlow**
 
-Install TensorFlow (version 1.5.0 is required) by invoking one of the following commands:
+Install TensorFlow by invoking one of the following commands:
 
-    $ pip3 install tensorflow==1.5.0     # Python 3.n; CPU support (no GPU support)
-    $ pip3 install tensorflow-gpu==1.5.0 # Python 3.n; GPU support
+    $ pip3 install tensorflow     # Python 3.n; CPU support (no GPU support)
+    $ pip3 install tensorflow-gpu # Python 3.n; GPU support
+
+Please uncomment the lines in 
 
 **4.) TensorFlow Object Detection API**
 
