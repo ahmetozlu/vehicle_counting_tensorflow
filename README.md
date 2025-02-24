@@ -92,7 +92,7 @@ Python is automatically installed on Ubuntu. Take a moment to confirm (by issuin
 
 The pip or pip3 package manager is usually installed on Ubuntu. Take a moment to confirm (by issuing a *pip -V* or *pip3 -V* command) that pip or pip3 is installed. We strongly recommend version 8.1 or higher of pip or pip3. If Version 8.1 or later is not installed, issue the following command, which will either install or upgrade to the latest pip version:
 
-    $ sudo apt-get install python3-pip python3-dev # for Python 3.n
+     sudo apt-get install python3-pip python3-dev # for Python 3.n
     
 **2.) OpenCV**
 
@@ -102,8 +102,8 @@ See required commands to install OpenCV on Ubuntu in [here](https://gist.github.
 
 Install TensorFlow by invoking one of the following commands:
 
-    $ pip3 install tensorflow     # Python 3.n; CPU support (no GPU support)
-    $ pip3 install tensorflow-gpu # Python 3.n; GPU support
+     pip3 install tensorflow     # Python 3.n; CPU support (no GPU support)
+     pip3 install tensorflow-gpu # Python 3.n; GPU support
 
 Current program is compatible with TensorFlow 1.5.0 version. Please uncomment these lines to run the program with TensorFlow 2.x: [#1](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/utils/label_map_util.py#L117), [#2](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py#L77), [#3](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py#L77), [#4](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/vehicle_detection_main.py#L78).
 
