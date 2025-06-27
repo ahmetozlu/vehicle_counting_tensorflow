@@ -99,3 +99,43 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Testing
+.pytest_cache/
+pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Claude
+.claude/*
+
+# Poetry
+# Don't ignore poetry.lock - it should be committed
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+virtualenv/
+.venv/
+ENV/
+env/
