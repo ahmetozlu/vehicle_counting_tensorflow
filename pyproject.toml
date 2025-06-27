@@ -1,0 +1,85 @@
+[tool.poetry]
+name = "vehicle-detection"
+version = "0.1.0"
+description = "Vehicle detection and tracking system with color recognition"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "utils"}, {include = "protos"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "*"
+scipy = "*"
+scikit-image = "*"
+tensorflow = ">1.4.0"
+opencv-python = "*"
+packaging = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.11.1"
+
+[tool.poetry.scripts]
+test = "pytest:main"
+tests = "pytest:main"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--verbose",
+    "--cov=utils",
+    "--cov=protos",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-report=term-missing",
+    "--cov-fail-under=0"  # Set to 0 for initial setup, increase as tests are added
+]
+markers = [
+    "unit: marks tests as unit tests (fast, isolated)",
+    "integration: marks tests as integration tests (may require external resources)",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
+
+[tool.coverage.run]
+source = ["utils", "protos"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/virtualenv/*",
+    "*/site-packages/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod"
+]
+precision = 2
+show_missing = true
+skip_empty = true
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
